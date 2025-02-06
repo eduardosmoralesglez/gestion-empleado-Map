@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -20,12 +21,15 @@ import es.ies.puerto.model.OperationsInterfase;
  */
 public class FileOperations implements OperationsInterfase{
     private File fichero;
-    private String path = "E:\\DAM\\1º DAM\\PRO\\Unidad 4\\tarea_2\\java-ficheros-Eduardo-Serafín\\src\\main\\resources\\empleados.txt";
+    private String nombreFichero = "empleado.txt";
+    private String path = "/media/dam/Elements SE/DAM/1º DAM/PRO/Unidad 4/tarea_2.5/gestion-empleado-Map/proyecto/src/main/resources/empleados.txt";
 
     /**
      * Constructor de inicializacion del fichero
      */
     public FileOperations() {
+        //URL source = getClass().getClassLoader().getResource(nombreFichero);
+        //fichero = new File(source.toURI());
         fichero = new File(path);
         if (!fichero.exists() || !fichero.isFile()) {
             throw new IllegalArgumentException("El recurso no es de tipo fichero: "+path);
@@ -46,7 +50,7 @@ public class FileOperations implements OperationsInterfase{
         if (empleados.contains(empleado)) {
             return false;
         }
-        return create(empleados.toString(), fichero);
+        return create(empleado.toString(), fichero);
     }
 
 /**
@@ -154,7 +158,7 @@ public class FileOperations implements OperationsInterfase{
         }
         Set<Empleado> empleados = read(fichero);
         Set<Empleado> empleadosFecha = new HashSet<>();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/mm/aaaa");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fecha1 = LocalDate.parse(fechaInicio, formato);
         LocalDate fecha2 = LocalDate.parse(fechaFin, formato);
         for (Empleado empleado : empleados) {
@@ -190,7 +194,7 @@ public class FileOperations implements OperationsInterfase{
      * @param file File. fichero a leer
      * @return Set<Empleado>
      */
-    private Set<Empleado> read(File file) {
+    public Set<Empleado> read(File file) {
         if (file == null) {
             return new HashSet<>();
         }
@@ -214,7 +218,7 @@ public class FileOperations implements OperationsInterfase{
      * @param file File.
      * @return true/false
      */
-    private boolean updateFile(Set<Empleado> empleados, File file) {
+    public boolean updateFile(Set<Empleado> empleados, File file) {
         try {
             file.delete();
             file.createNewFile();
