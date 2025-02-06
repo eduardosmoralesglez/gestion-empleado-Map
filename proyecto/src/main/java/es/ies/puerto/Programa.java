@@ -1,10 +1,5 @@
 package es.ies.puerto;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import es.ies.puerto.model.Empleado;
 import es.ies.puerto.model.OperationsInterfase;
 import es.ies.puerto.model.fichero.FileMapOperations;
@@ -28,6 +23,7 @@ public class Programa {
         System.out.println(fileOperations.delete("4"));
         //Obtener empleados por fechas
         System.out.println(fileOperations.empleadosPorEdad("01/01/1994", "01/01/2005"));
-        
+        //Obtener empleados por puesto
+        System.out.println(fileOperations.empleadosPorPuesto("Desarrollador"));
     }    
 }

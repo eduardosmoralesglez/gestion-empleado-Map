@@ -11,6 +11,8 @@ import es.ies.puerto.model.Empleado;
  * Implementacion de la Interfase Operaciones
  *  - Usa TreeMap para ordenar el fichero.
  *  - Esta clase extiende de FileOperations
+ * @author eduardo serafin
+ * @version 1.0.0 060225
  */
 public class FileMapOperations extends FileOperations{
     

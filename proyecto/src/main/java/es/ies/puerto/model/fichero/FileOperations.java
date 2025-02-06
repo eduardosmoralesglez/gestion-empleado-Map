@@ -143,7 +143,7 @@ public class FileOperations implements OperationsInterfase{
         Set<Empleado> empleadosPuesto = new HashSet<>();
         Set<Empleado> empleados = read(fichero);
         for (Empleado empleado : empleados) {
-            if (empleado.getPuesto() == puesto) {
+            if (empleado.getPuesto().equals(puesto)) {
                 empleadosPuesto.add(empleado);
             }
         }
@@ -166,11 +166,9 @@ public class FileOperations implements OperationsInterfase{
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fecha1 = LocalDate.parse(fechaInicio, formato);
         LocalDate fecha2 = LocalDate.parse(fechaFin, formato);
-        for (Empleado empleado : empleados) {//TODO cambiar esto
-            int empleadoEdad = empleado.getEdad();
-            LocalDate ahora = LocalDate.now();
-            ahora = ahora.minusYears(empleadoEdad);
-            if (fecha1.isAfter(ahora) && fecha2.isBefore(ahora)) {
+        for (Empleado empleado : empleados) {
+            LocalDate fechaEmpleado = LocalDate.parse(empleado.getFechaNacimineto(), formato);
+            if (fechaEmpleado.isAfter(fecha1) && fechaEmpleado.isBefore(fecha2)) {
                 empleadosFecha.add(empleado);
             }
         }
