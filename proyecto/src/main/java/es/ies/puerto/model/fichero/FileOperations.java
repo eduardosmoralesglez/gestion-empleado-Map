@@ -20,20 +20,25 @@ import es.ies.puerto.model.OperationsInterfase;
  * @version 1.0.0 020225
  */
 public class FileOperations implements OperationsInterfase{
-    private File fichero;
-    private String nombreFichero = "empleado.txt";
-    private String path = "/media/dam/Elements SE/DAM/1º DAM/PRO/Unidad 4/tarea_2.5/gestion-empleado-Map/proyecto/src/main/resources/empleados.txt";
+    File fichero;
+    String nombreFichero = "/empleado.txt";
+    String path = "E:\\DAM\\1º DAM\\PRO\\Unidad 4\\tarea_2.5\\gestion-empleado-Map\\proyecto\\src\\main\\resources\\empleados.txt";
 
     /**
      * Constructor de inicializacion del fichero
      */
     public FileOperations() {
-        //URL source = getClass().getClassLoader().getResource(nombreFichero);
-        //fichero = new File(source.toURI());
-        fichero = new File(path);
-        if (!fichero.exists() || !fichero.isFile()) {
-            throw new IllegalArgumentException("El recurso no es de tipo fichero: "+path);
+        try {
+            //URL source = getClass().getClassLoader().getResource(nombreFichero);
+            //fichero = new File(source.toURI());
+            fichero = new File(path);
+            if (!fichero.exists() || !fichero.isFile()) {
+                throw new IllegalArgumentException("El recurso no esta en la carpeta resources");
         }
+        } catch (Exception e) {
+            
+        }
+        
     }
 
 /**
@@ -161,9 +166,11 @@ public class FileOperations implements OperationsInterfase{
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fecha1 = LocalDate.parse(fechaInicio, formato);
         LocalDate fecha2 = LocalDate.parse(fechaFin, formato);
-        for (Empleado empleado : empleados) {
-            LocalDate fechaEmpleado = empleado.getEdad();
-            if (fechaEmpleado.isAfter(fecha1) && fechaEmpleado.isBefore(fecha2)) {
+        for (Empleado empleado : empleados) {//TODO cambiar esto
+            int empleadoEdad = empleado.getEdad();
+            LocalDate ahora = LocalDate.now();
+            ahora = ahora.minusYears(empleadoEdad);
+            if (fecha1.isAfter(ahora) && fecha2.isBefore(ahora)) {
                 empleadosFecha.add(empleado);
             }
         }
@@ -171,7 +178,7 @@ public class FileOperations implements OperationsInterfase{
     }
 
 
-// Funciones privadas
+// Funciones de apoyo
 
     /**
      * Funcion privada para aniadir datos al fichero
@@ -179,7 +186,7 @@ public class FileOperations implements OperationsInterfase{
      * @param file File. Fichero a modificar
      * @return true/false
      */
-    private boolean create(String data,File file) {
+    public boolean create(String data,File file) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(data);
             writer.newLine();
@@ -236,7 +243,7 @@ public class FileOperations implements OperationsInterfase{
      * @param empleado Empleado. Empleado a buscar
      * @return Empleado
      */
-    private Empleado search(Empleado empleado) {
+    public Empleado search(Empleado empleado) {
         if (empleado == null || empleado.getIdentificador() == null) {
             return empleado;
         }

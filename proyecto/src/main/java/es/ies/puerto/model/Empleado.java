@@ -97,12 +97,15 @@ public class Empleado extends Persona{
      * Metodo para calcular la edad del empleado
      * @return LocalDate
      */
-    public LocalDate getEdad() {
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/mm/aaaa");
-        LocalDate fechaNacimiento = LocalDate.parse(getFechaNacimineto(), formato);
+    public int getEdad() {
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaNacimiento = LocalDate.parse(fechaNacimineto, formato);
         LocalDate fechaActual = LocalDate.now();
         Period edadPeriodo = fechaNacimiento.until(fechaActual);
-        LocalDate edad = LocalDate.of(edadPeriodo.getYears(), edadPeriodo.getMonths(), edadPeriodo.getDays());
-        return edad;
+        return edadPeriodo.getYears();
+    }
+    public static void main(String[] args) {
+        Empleado empleado = new Empleado("1", "Juan", "Programador", 2000.0, "25/03/2001");
+        System.out.println(empleado.getEdad());
     }
 }

@@ -1,6 +1,9 @@
 package es.ies.puerto;
 
-import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import es.ies.puerto.model.Empleado;
 import es.ies.puerto.model.OperationsInterfase;
@@ -24,7 +27,7 @@ public class Programa {
         System.out.println(fileOperations.read("4"));
         System.out.println(fileOperations.delete("4"));
         //Obtener empleados por fechas
-        System.out.println(fileOperations.empleadosPorEdad("01/01/1995", "01/01/2005"));
-
+        System.out.println(fileOperations.empleadosPorEdad("01/01/1994", "01/01/2005"));
+        
     }    
 }
